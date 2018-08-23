@@ -23,5 +23,7 @@ public class Main {
         System.out.println(mathBox.splitter(5));
 
         System.out.println(mathBox.remove(23));
+
+        System.out.println(mathBox.remove(((Integer) array.iterator().next())));
     }
 }

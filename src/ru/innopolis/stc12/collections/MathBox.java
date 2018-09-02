@@ -2,15 +2,12 @@ package ru.innopolis.stc12.collections;
 
 import java.util.*;
 
-public class MathBox {
-    private List list = new ArrayList();
+@Logged
+public class MathBox implements MathOperations, ObjectContainer<Integer> {
+    private List<Integer> list = new ArrayList<>();
 
     public MathBox(Set<Integer> values) {
-
-        for (Integer item : values) {
-            list.add(item);
-        }
-
+        list.addAll(values);
         sort();
     }
 
@@ -21,15 +18,15 @@ public class MathBox {
         do {
             swapped = false;
             for (int i = 1; i < list.size(); i++) {
-                Integer item1 = (Integer) list.get(i);
-                Integer item2 = (Integer) list.get(i - 1);
+                Integer item1 = list.get(i);
+                Integer item2 = list.get(i - 1);
                 if (item1.compareTo(item2) > 0) {
                     list.set(i, item2);
                     list.set(i - 1, item1);
                     swapped = true;
                 }
             }
-        } while (swapped != false);
+        } while (!swapped);
     }
 
     public long summator() {
@@ -47,7 +44,7 @@ public class MathBox {
     public Set splitter(Integer div) {
         if (div == 0) return new HashSet();
 
-        Set result = new HashSet();
+        Set<Double> result = new HashSet<>();
 
         for (Object item : list) {
             Double divResult = ((Integer) item).doubleValue() / div;
@@ -57,8 +54,21 @@ public class MathBox {
         return result;
     }
 
+
+    @Override
     public boolean remove(Integer value) {
         return list.remove(value);
+    }
+
+    @Override
+    public void add(Integer value) {
+        list.add(value);
+    }
+
+    @Override
+    @ClearData
+    public void addAll(Collection values) {
+        list.addAll(values);
     }
 
     @Override
